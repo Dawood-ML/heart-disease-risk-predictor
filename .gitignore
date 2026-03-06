@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+*.egg-info/
+.venv/
+
+# ML artifacts
+mlruns/
+mlartifacts/
+metrics/mlflow_run_id.txt
+
+# DVC internal (git tracks .dvc files, not the cache)
+/tmp
+
+# Data (tracked by DVC, not git)
+data/raw/
+data/processed/
+models/
+
+# Notebooks checkpoints
+.ipynb_checkpoints/
