@@ -1,0 +1,26 @@
+data:
+  url: "https://archive.ics.uci.edu/ml/machine-learning-databases/heart-disease/processed.cleveland.data"
+  raw_file: "data/raw/heart_disease.csv"
+  test_size: 0.2
+  val_size: 0.1
+  random_seed: 42
+
+model:
+  input_dim: 13 # data columns
+  hidden_dims: [32, 64, 128, 256, 512, 256, 128, 32, 64, 32, 16, 8, 4]
+  activation: relu
+  dropout_rate: 0.2
+
+training:
+  epochs: 1500
+  batch_size: 64
+  learning_rate: 0.001
+  weight_decay: 0.0001 # L2 regularization
+  early_stopping_patience: 15
+  scheduler: cosine
+
+mlflow:
+  experiment_name: "heart-Disease-Risk_predictor"
+  model_registry_name: heart-disease-classifier
+  promotion_threshold: 0.001
+  
