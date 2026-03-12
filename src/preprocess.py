@@ -15,4 +15,8 @@ df = pd.read_csv("data/raw/heart_disease.csv")
 print(f"Raw data shape: {df.shape}")
 print(f"Missing values before cleaning:\n{df.isnull().sum()}")
 
+# WHAT: Drop rows with missing values
+# WHY: Only 6 rows have missing values (num_vessels and thal columns).
+#      Imputing 2% of data adds noise. Better to drop.
 df = df.dropna()
+
