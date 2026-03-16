@@ -100,5 +100,8 @@ stats  = {
     "feature_means"   : scaler.mean_.tolist(),
     "feature_stds"   : scaler.scale_.tolist(), 
 }
-Path('metrics')
-print(stats.get("positive_rate_train"))
+Path('metrics').mkdir(exist_ok=True)
+with open('metrics/data_stats.json', 'w') as f:
+    json.dump(stats, f, indent=2)
+
+print("\nProcessing complete. Scaler saved to models/scaler.pkl")
