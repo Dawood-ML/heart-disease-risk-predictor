@@ -68,4 +68,28 @@ class HeartDiseaseClassifier(nn.Module):
         self.network = nn.Sequential(*layers)
 
         # Initialize xavier weights
+        self._initialize_weights()
+    
+    def _initialize_weights(self):
+        for module in self.modules():
+            if isinstance(module, nn.Linear):
+                nn.init.xavier_uniform_(module.weight)
+                nn.init.zeros_(module.bias)
+                
+    def forward(self, x:torch.Tensor) -> torch.Tensor:
+        # Returns raw logit -- not probability
+        # Use torch.igmoid(model(x)) to get probability at inference
+        return self.network(x).squeeze(1)
+    
+    def predict_proba(self, x:torch.tensor) -> torch.Tensor:
+        """Convenience method for inference — returns probabilities."""
+        self.eval()
+        with torch.no_grad():
+            logits = self.forward(x)
+            return torch.sigmoid(logits)
+
+    def count_parameters(self) -> int:
+        """Count trainable parameters — useful to log in MLflow."""
+        return sum(p.numel() for p in self.parameters() if p.requires_grad)
+
         
